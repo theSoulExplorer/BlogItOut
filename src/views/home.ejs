@@ -1,0 +1,60 @@
+
+<%- include("partials/header.ejs") %>
+
+
+    <div class="container">
+
+    
+        <% blogs.forEach((blog) => { %>
+
+            <!-- <a class="blog" href="/blog/<%= blog._id %>"> -->
+
+
+                <div class="blogBox">
+
+
+
+
+                    <div class="bb-right">
+
+                        <img class="cover-img" src="<%= blog.coverImg.substring(11,blog.coverImg.length) %>" />
+
+                    </div>
+
+
+
+
+
+                    <div class="bb-left">
+
+                        <p class="blog-title"> <%= blog.title %> </p>
+
+                        <!-- <p class="auther-name auther"> <%= blog.authorName %> </p> -->
+                        <a href="/user/<%= blog.authorUsername %>"> <p class="username"> @<%= blog.authorUsername %> </p> </a>
+
+
+
+                        <p class="content"> <%= blog.content.substring(0,150) %> . . . </p>
+
+                        <a class="readMore" href="/blog/id=<%= blog._id %>">Read More</a>
+
+                        <span class="likes"> <i class="fa-solid fa-heart"></i> <%= blog.likes.length %> </span>
+
+                    </div>
+
+
+
+
+
+                </div>
+
+
+            <!-- </a> -->
+
+
+        <% }) %>
+
+    </div>
+
+
+<%- include("partials/footer.ejs") %>

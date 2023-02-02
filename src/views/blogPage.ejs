@@ -1,0 +1,193 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="bp-container">
+        
+        <div class="bp-authorinfo">
+            
+            <div class="bp-author-left">
+                <img class="bp-authorImage" src="../<%= author.profileImg.substring(11 , author.profileImg.length) %>" />
+            </div>
+
+            <div class="bp-author-right">
+                <h3 class="bp-authorName"><%= author.fname + " " + author.lname%></h3>
+                <a href="/user/<%= author.username %>"> <h4 class="bp-authorUsername"> @<%= author.username %></h4> </a>
+            </div>
+            
+            
+        </div>
+        
+        
+        <h2 class="bp-title" ><%= blog.title %></h2>
+
+        <div class="bp-coverImage-div">
+            <img class="bp-coverImage" src="../<%= blog.coverImg.substring(11,blog.coverImg.length) %>" />
+        </div>
+    
+        <p class="bp-content"><%= blog.content %></p>
+
+        <div class="bp-likes">
+            <i class = "bp-likebtn fa-solid fa-heart <%= blog.likes.includes(user._id) ? 'liked' : 'unliked' %>" id="likeBtn" onclick = "toggleLike()" ></i>
+            <p class="likeCount"> <%= blog.likes.length %> </p>
+        </div>
+                
+        <form class="bp-comment-input" action="/blog/comment" method="post">
+            
+            <input type="hidden" name="blogId" value="<%= blog._id%>">
+            <input class="bp-comment-input-box" type="text" name="comment" placeholder="Add Your Comment . . .">
+            
+            <button type="submit" class="bp-submit"><i class="fa-regular fa-paper-plane"></i></button>
+            
+            
+        </form>
+        
+        <div class="comments">
+    
+            <% blog.comments.forEach(comment => { %>
+    
+                <div class="comment-box">
+    
+                    <a href="/user/<%= comment.commenterUsername %>"> <h1 class="bp-comment-username"> <%= "@" + comment.commenterUsername %> </h1> </a>
+
+                    <p class="hidden-p" style="display:none;"><%= comment.date.getTime() %></p>
+
+                    <span class="bp-comment-date"> <%= comment.date.getTime() %></span>
+                    <p class="bp-comment" > <%= comment.comment %> </p>
+    
+                </div>
+    
+            <% }) %>
+    
+        </div>
+
+    </div>
+
+    
+
+    <script>
+
+        window.addEventListener("load" , ()=>{
+
+            const hiddenP = document.getElementsByClassName("hidden-p");
+            const comment_date = document.getElementsByClassName("bp-comment-date");
+
+            const newDate = new Date().getTime();
+            for(let i=0 ; i<hiddenP.length; i++)
+            {
+                const curTime = hiddenP[i].textContent;
+                const timeDiff = newDate - curTime;
+
+                console.log(timeDiff);
+                const seconds = Math.floor(timeDiff/1000);
+
+                if(seconds < 60)
+                {
+                    const string = (seconds <= 1) ? " second ago" : " seconds ago";
+                    comment_date[i].textContent = seconds +  string;
+                    continue;
+                }
+                
+                const minutes = Math.floor(seconds/60);
+                if(minutes < 60)
+                {
+                    const string = (minutes <= 1) ? " minute ago" : " minutes ago";
+
+                    comment_date[i].textContent = minutes + string;
+                    continue;
+                }
+
+                const hours = Math.floor(minutes/60);
+                if(hours < 24)
+                {
+                    const string = (hours <= 1) ? " hour ago" : " hours ago";
+
+                    comment_date[i].textContent = hours + string;
+                    continue;
+                }
+
+                const day = Math.floor(hours/24);
+                if(day < 30)
+                {
+                    const string = (day <= 1) ? " day ago" : " days ago";
+
+                    comment_date[i].textContent = day + string;
+                    continue;
+                }
+
+                const month = Math.floor(day/30);
+                if(month < 12)
+                {
+                    const string = (month <= 1) ? " month ago" : " months ago";
+
+                    comment_date[i].textContent = month + string;
+                    continue;
+                }
+
+
+                const year = Math.floor(month/12);
+                const string = (year <= 1) ? " year ago" : " years ago";
+
+                comment_date[i].textContent = year + string;
+                continue;
+            }
+
+        })
+
+
+        
+        const toggleLike = async () => {
+            const btn = document.querySelector("#likeBtn");
+            // btn.classList.toggle("like-animation");
+            if (btn.classList.contains("liked")) {
+                unlike();
+                btn.classList.add("like-animation-2");
+                btn.classList.remove("like-animation");
+                btn.classList.remove("liked");
+                btn.classList.add("unliked");
+                // btn.textContent = "LIKE";
+            }
+            else {
+                like();
+                btn.classList.add("like-animation");
+                btn.classList.remove("like-animation-2");
+                btn.classList.remove("unliked");
+                btn.classList.add("liked");
+                // btn.textContent = "UNLIKE";
+
+            }
+
+        };
+
+
+
+
+        const like = async () => {
+            
+
+
+            const updatedBlog = await fetch("/blog/like" , {
+                method : "POST",
+            });
+
+            const result = await updatedBlog.json();
+
+            document.querySelector(".likeCount").textContent = result.updatedBlog.likes.length;
+
+
+        }
+
+        const unlike = async () => {
+            
+
+            const updatedBlog = await fetch("/blog/unlike", {
+                method: "POST",
+            });
+
+            const result = await updatedBlog.json();
+
+            document.querySelector(".likeCount").textContent = result.updatedBlog.likes.length;
+
+        }
+
+    </script>
+    
+<%- include("partials/footer.ejs") %>

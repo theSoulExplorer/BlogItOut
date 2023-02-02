@@ -1,0 +1,227 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="pp-container">
+
+        <% if(user.username !== userdata.username){ %>
+
+        <div class="pp-image-div">
+            <img class="pp-image<%=(userdata.profileImg.substring(11,userdata.profileImg.length)  === '/images/default.png') ? ' pp-default-img' : '' %>" src="../<%= userdata.profileImg.substring(11,userdata.profileImg.length) %>" />
+        </div>
+
+        <% }else{ %>
+
+        <div class="avatar-upload">
+            <div class="avatar-edit">
+                <form action="/user/uploadDp" method="post" id="form-image" enctype="multipart/form-data">
+                <input name="dp" type='file' id="imageUpload" accept="image/jpeg , image/png , image/jpg" />
+                <label for="imageUpload"></label>
+                </form>
+            </div>
+            <div class="avatar-preview">
+                
+                <img class="profile-user-img<%=(userdata.profileImg.substring(11,userdata.profileImg.length)  === 'images/default.png') ? ' pp-default-img' : '' %>" id="imagePreview" src="../<%=userdata.profileImg.substring(11,userdata.profileImg.length)%>" alt="User profile picture">
+            </div>
+        </div>
+
+        <% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <h1 class="pp-name"><%= userdata.fname + " " + userdata.lname %></h1>
+        <h3 class="pp-username">@<%= userdata.username %></h3>
+
+        <hr class="pp-hr"/>
+
+        <p class="pp-about" id="par"><%= userdata.about %></p>
+
+        <hr class="pp-hr"/>
+        
+        <% if(user.username == userdata.username){ %>
+        
+            <div class="pp-edit-div">
+                <button class="pp-edit-about" id="pp-pen-icon" onclick="edit()"><i class="fa-solid fa-pen"></i></i></button>
+                <button class="pp-edit-about" id="pp-check-icon" style="display: none;" onclick="submit()"><i class="fa-solid fa-check"></i></i></button>
+            </div>
+            
+        <%}%>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="container">
+        
+        
+            <% blogs.forEach((blog)=> { %>
+        
+                <!-- <a class="blog" href="/blog/<%= blog._id %>"> -->
+        
+        
+                <div class="blogBox">
+        
+        
+        
+        
+                    <div class="bb-right">
+        
+                        <img class="cover-img" src="../<%= blog.coverImg.substring(11,blog.coverImg.length) %>" />
+        
+                    </div>
+        
+        
+        
+        
+        
+                    <div class="bb-left">
+        
+                        <p class="blog-title">
+                            <%= blog.title %>
+                        </p>
+        
+                        <!-- <p class="auther-name auther"> <%= blog.authorName %> </p> -->
+                        <a href="/user/<%= blog.authorUsername %>">
+                            <p class="username"> @<%= blog.authorUsername %>
+                            </p>
+                        </a>
+        
+        
+        
+                        <p class="content">
+                            <%= blog.content.substring(0,150) %> . . .
+                        </p>
+        
+                        <a class="readMore" href="/blog/id=<%= blog._id %>">Read More</a>
+        
+                        <span class="likes"> <i class="fa-solid fa-heart"></i>
+                            <%= blog.likes.length %>
+                        </span>
+        
+                    </div>
+        
+        
+        
+        
+        
+                </div>
+        
+        
+                <!-- </a> -->
+        
+        
+                <% }) %>
+        
+        </div>
+
+
+
+    <script>
+
+        document.querySelector("#imageUpload").addEventListener("change",(data) => {
+            console.log("hello",data);
+        var imageFile = data.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(imageFile);
+
+        reader.onload = async function(evt){
+            document.querySelector('#imagePreview').setAttribute('src', evt.target.result);
+            // console.log(evt.target.result);
+            // document.querySelector('#imagePreview').hide();
+            // document.querySelector('#imagePreview').fadeIn(650);
+            const form = document.getElementById("form-image");
+            form.submit();
+        }
+        
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+        const par = document.getElementById("par");
+        const pp_hr = document.getElementsByClassName("pp-hr");
+        const pp_check_icon = document.querySelector("#pp-check-icon");
+        const pp_pen_icon = document.querySelector("#pp-pen-icon");
+
+        const submit = async() =>{
+
+            let about_data = par.textContent;
+            
+            
+            pp_hr[0].style.backgroundColor = "rgb(200, 200, 200)";
+            pp_hr[1].style.backgroundColor = "rgb(200, 200, 200)";
+            par.setAttribute("contenteditable", "false");
+            pp_check_icon.style.display = "none";
+            pp_pen_icon.style.display = "block";
+            // const data = {about_data};
+
+            const options = {
+                method: "POST",
+                headers: {
+                    'Content-Type' : 'application/x-www-form-urlencoded'
+                    // 'Content-Type': 'application/json'
+                },
+                body:about_data
+
+            }
+            const updateAbout = await fetch("/user/updateAbout", options);
+        }
+
+        function edit() {
+
+            pp_check_icon.style.display = "block";
+            pp_pen_icon.style.display = "none";
+            par.style.outline = "none";
+            pp_hr[0].style.backgroundColor = "rgba(0, 122, 204,0.5)";
+            pp_hr[1].style.backgroundColor = "rgba(0, 122, 204,0.5)";
+            // par.style.border = "1px solid grey";
+            par.setAttribute("contenteditable", "true");
+
+            var range = document.createRange()
+            var sel = window.getSelection()
+            let size = par.textContent.length;
+
+            range.setStart(par.childNodes[0], size)
+            range.collapse(true)
+
+            sel.removeAllRanges()
+            sel.addRange(range)
+        }
+
+    </script>
+        
+
+        
+
+
+<%- include("partials/footer.ejs") %>

@@ -1,0 +1,108 @@
+<%- include("partials/header.ejs") %>
+
+    <% if(typeof err !='undefined' ){ %>
+    
+        <div class="compose-error">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p class="compose-error">
+                <%=err%>
+            </p>
+        </div>
+    
+    <% } %>
+
+    
+
+    <form class="compose-form" action="/blog/post" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="authorId" value="<%= user._id %>">
+
+        <input class="compose-input compose-title" type="text" name="title" placeholder="Title ( must be concise )">
+
+        <div class="compose-coverImg">
+
+            <label class="compose-coverImg-label">Import Cover Image : </label>
+            <input class="compose-image" type="file" name="coverImg" accept="image/jpeg , image/png , image/jpg">
+
+        </div>
+
+        <textarea class="compose-input compose-content" name="content" cols="30" rows="30" placeholder="Blog It Out . . ."></textarea>
+
+        <div class="compose-button">
+
+            <input type="button" class="compose-post" onclick="preview()" value="PREVIEW">
+            <button type="submit" class="compose-post"> POST </button>
+
+        </div>
+
+    </form>
+
+
+
+
+
+
+
+
+    <div class="compose-preview-container">
+
+
+        <div class="compose-preview">
+
+            <h1 class="preview-title"></h1>
+            <img class="preview-image" src="#" alt="No Image Choosen"/>
+            <p class="preview-content"></p>
+
+        </div>
+
+        <div class="preview-back">
+            
+            <i class="fa-solid fa-arrow-left preview-back-arrow" onclick="previewoff()" ></i>
+        
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+        function preview(){
+            
+            document.body.classList.add("noscroll");
+
+            let composeTitle = document.querySelector(".compose-title");
+            let previewHeading = document.querySelector(".preview-title");
+            let previewImg = document.querySelector(".preview-image");
+            let previewContent = document.querySelector(".preview-content");
+            let img = document.querySelector(".compose-image");
+            let previewContainer = document.querySelector(".compose-preview-container");
+            let composeContent = document.querySelector(".compose-content");
+
+            let heading = composeTitle.value;
+            previewHeading.textContent = heading;
+            const [file] = img.files;
+            if (file) {
+                previewImg.src = URL.createObjectURL(file);
+            }
+            let content = composeContent.value;
+            previewContent.textContent = content;
+            previewContainer.style.display = "block";
+
+        }
+
+        function previewoff(){
+            document.body.classList.remove("noscroll");
+            let previewContainer = document.querySelector(".compose-preview-container");
+            previewContainer.style.display = "none";
+
+
+        }
+
+
+    </script>
+
+
+
+<%- include("partials/footer.ejs") %>

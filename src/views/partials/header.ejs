@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Document</title>
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-interactivity@latest/dist/lottie-interactivity.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/styles/compose.css">
+    <link rel="stylesheet" href="/styles/blogPage.css">
+    <link rel="stylesheet" href="/styles/profilepage.css">
+
+</head>
+
+<body>
+
+
+    <div class="nav-bar">
+
+
+        <a href="/"> <h1 class="header-name"> BlogItOut </h1> </a>
+
+
+        <% if(isLoggedIn){ %>
+
+            <div class="header loggedIn">
+
+                <img class="image" onclick="onoff()"
+                    src="../<%= user.profileImg.substring(11,user.profileImg.length) %>" />
+
+
+
+                <div class="dropdown off">
+
+                    <a class="dd-link" id="dd-username" href="/user/<%= user.username %>">
+                        <i class="fa-solid fa-user"></i>
+                        <%= user.username %>
+                    </a>
+
+                    <hr class="dd-hr">
+
+                    <a class="dd-link" href="/blog/compose">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Compose
+                    </a>
+                    <a class="dd-link" href="/user/logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        Logout
+                    </a>
+
+                </div>
+
+
+
+            </div>
+
+            <% }else{ %>
+
+                <div class="header loggedOut">
+
+                    <a class="auth-btn signInBtn" href="/user/login">Sign In</a>
+                    <a class="auth-btn signUpBtn" href="/user/register">Sign Up</a>
+
+                </div>
+
+                <% } %>
+
+    </div>

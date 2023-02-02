@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />    
+
+    <link rel="stylesheet" href="/styles/login.css">
+
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="form-card">
+
+            <h1 class="heading">Login</h1>
+
+            <form class="form" action="/user/login" method="post">
+
+                <input type="hidden" name="reqUrl" value="<%= reqUrl %>">
+
+
+
+                <div class="form-input form-username">
+
+                    <label for="username"> Username </label>
+                    <span class="span-input" style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+                        <i class="fa-solid fa-user"></i>
+                        <input class="input" id="username" type="text" name="username" placeholder="Type your Username">
+                    </span>
+                    
+
+                </div>
+
+                <div class="form-input form-password">
+
+                    <label for="password"> Password </label>
+                    <span class="span-input" style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+                        <i class="fa-solid fa-lock"></i>
+                        <input class="input" id="password" type="password" name="password" placeholder="Type your Password">
+                    </span>
+
+                </div>
+
+                    <% if(typeof err !='undefined' ){ %>
+                        
+                        <div class="error">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <p class="error-para">Wrong Login Crediantals</p>
+                        </div>
+                    
+                    <% } %>
+
+                <input class="form-submit" type="submit" value="LOGIN">
+
+
+            </form>
+
+            <p class="para">
+                Don't have an account? 
+            </p>
+            <a class="signUp" href="/user/register">Sign Up</a>
+
+        </div>
+
+    </div>
+
+    
+</body>
+</html>

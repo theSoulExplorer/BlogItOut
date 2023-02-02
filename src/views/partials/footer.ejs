@@ -1,0 +1,48 @@
+<div class="footer">
+
+    <div class="footer-con">
+
+        <div class="footer-left">
+            <div>Copyright © 2022 BlogItOut</div>
+
+            <div class="footer-links">
+                <a class="footer-link" href="#">Feedback</a>
+                <a class="footer-link" href="#">About</a>
+                <a class="footer-link" href="#">Team</a>
+            </div>
+        </div>
+
+
+        <div class="footer-right">
+            <div class="flag"></div>
+            <div class="india">India</div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+    function onoff() {
+        document.querySelector(".dropdown").classList.toggle("off");
+    }
+
+    window.addEventListener("click", function (event) {
+        if (!event.target.matches('.image')) {
+            document.querySelector(".dropdown").classList.add("off");
+        }
+    })
+
+
+
+
+</script>
+
+
+</body>
+
+</html>

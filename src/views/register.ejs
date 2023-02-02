@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="/styles/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+</head>
+<body>
+
+
+    <div class="container">
+
+        <div class="form-card">
+
+            <h1 class="heading">Register</h1>
+
+            <form class="form" action="/user/register" method="post">
+
+
+                <div class="form-input form-name">
+
+                    <div class="first-name name-input">
+
+                        <label for="fname"> First Name </label>
+
+                        <span class="span-input"
+                            style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+
+                            <i class="fa-solid fa-user"></i>
+                            <input class="input" id="fname" type="text" name="fname" placeholder="Type your First Name">
+
+                        </span>
+
+                    </div>
+
+                    <div class="last-name name-input">
+
+                        <label for="lname"> Last Name </label>
+                        <span class="span-input"
+                            style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+
+                            <i class="fa-solid fa-user"></i>
+                            <input class="input" id="lname" type="text" name="lname" placeholder="Type your Last Name">
+
+                        </span>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+                <div class="form-input form-username">
+
+                    <label for="username"> Username </label>
+                    <span class="span-input"
+                        style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+                        <i class="fa-solid fa-user"></i>
+                        <input class="input" id="username" type="text" name="username" placeholder="Type your Username">
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="form-input form-password">
+
+                    <label for="password"> Password </label>
+                    <span class="span-input"
+                        style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+                        <i class="fa-solid fa-lock"></i>
+                        <input class="input" id="password" type="password" name="password" placeholder="Type your Password">
+                    </span>
+
+                </div>
+
+
+
+                <div class="form-input form-cpassword">
+                
+                    <label for="cpassword"> Confirm Password </label>
+                    <span class="span-input"
+                        style="border-bottom: <%= typeof err !='undefined' ? '1px solid rgb(251, 57, 88)' : '1px solid rgb(100, 100, 100)' %>">
+                        <i class="fa-solid fa-lock"></i>
+                        <input class="input" id="cpassword" type="password" name="cpassword" placeholder="Re-Enter your Password">
+                    </span>
+                
+                </div>
+
+
+
+
+
+                <% if(typeof err !='undefined' ){ %>
+
+                    <div class="error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <p class="error-para"><%= err %></p>
+                    </div>
+
+                <% } %>
+
+                        <input class="form-submit" type="submit" value="REGISTER">
+
+
+            </form>
+
+            <p class="para">
+                Already have an account?
+            </p>
+            <a class="signUp" href="/user/login">Sign In</a>
+
+        </div>
+
+    </div>
+
+
+
+
+    
+</body>
+</html>

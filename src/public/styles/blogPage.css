@@ -1,0 +1,230 @@
+:root {
+    --blue: rgb(0, 153, 255);
+    --dark-blue: rgb(0, 122, 204);
+    --white: rgb(255, 255, 255);
+    --shadow: rgb(232, 232, 232);
+    --shadow-hover: rgba(232, 232, 232, 0.5);
+    --grey: rgb(100, 100, 100);
+    --light-grey: rgb(200, 200, 200);
+    --grey-hover: rgba(170, 170, 170, 0.5);
+    --red: rgb(251, 57, 88);
+}
+
+.bp-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-inline: 5.5vw;
+    /* justify-content: center; */
+    /* background-color: red; */
+}
+
+.bp-authorinfo{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px solid black; */
+    margin-bottom: 4vh;
+}
+
+.bp-author-left{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    /* border: 2px solid blue; */
+    /* padding-left: 5vw; */
+    /* margin-left: 5.5vw; */
+}
+
+.bp-authorImage{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.bp-author-right{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    /* border: 2px solid yellow; */
+    margin-left: 1vw;
+}
+
+.bp-authorName{
+    color: black;
+    font-size: 20px;
+    /* text-decoration: underline; */
+}
+
+.bp-authorUsername{
+    color: var(--dark-blue);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.bp-authorUsername:hover{
+    color: var(--blue);
+}
+
+.bp-title{
+    margin: 4vh 0 4vh 0;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.bp-coverImage-div{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: var(--shadow-hover);
+    margin-bottom: 4vh;
+    align-items: center;
+
+}
+
+.bp-coverImage{
+    margin-inline: auto;
+    width: 60%;
+    /* height: 50vh; */
+}
+.bp-content{
+    font-weight: 500;
+    margin-bottom: 4vh;
+    white-space: pre-wrap;
+    height: auto;
+    
+}
+
+.bp-likes{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding-left: 2vw;
+    margin-bottom: 2vh;
+    
+}
+
+.bp-likebtn{
+    cursor: pointer;
+    transform: scale(1.5);
+    margin-top: 3vh;
+}
+.likeCount{
+    margin-top: 3vh;
+    margin-inline: 2vw;
+    font-size: 18px;
+}
+@keyframes like-ani{
+    
+    
+    0% {transform: rotate(0) scale(1.6);}
+    25%{transform: rotate(-10deg) scale(1.7);}
+    75%{transform: rotate(10deg) scale(1.7);}
+    100% {transform: rotate(0deg) scale(1.5);}
+}
+@keyframes like-ani-2{
+    from{color:var(--red);}
+    to{color:var(--light-grey);}
+}
+.like-animation-2{
+
+    animation-name: like-ani-2;
+    animation-duration: 0.2s;
+}
+.like-animation{
+
+    animation-name: like-ani;
+    animation-duration: 1s;
+    
+
+}
+
+.liked{
+    color: var(--red);
+
+}
+.unliked{
+    color: var(--light-grey);
+}
+
+.bp-comment-input{
+    display: flex;
+    flex-direction: row;
+    /* border: 2px solid black; */
+    justify-content: left;
+    align-items: center;
+    /* margin-inline: 5.5vw; */
+    margin-bottom: 5vh;
+}
+
+.bp-comment-input-box{
+    width: 90%;
+    height: 6vh;
+    border-radius:10px;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 10px var(--shadow);
+    padding-left:1vw;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    /* margin-inline: auto; */
+}
+
+.bp-submit{
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--shadow);
+    height: 6vh;
+    width: 6vh;
+    background-color: white;
+    margin-left: 1vw;
+    /* margin-top: 4vh; */
+    cursor: pointer;
+}
+.fa-paper-plane{
+    transform: scale(1.75);
+
+}
+
+.comments{
+    margin-bottom: 8vh;
+}
+
+.comment-box{
+    border-top: 1px solid var(--light-grey);
+    margin-bottom: 2vh;
+    padding: 1vh 0 1vh 0;
+
+}
+.comment-box:nth-child(1){
+    border: none;
+}
+
+.bp-comment-username{
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--dark-blue);
+    display: inline;
+    cursor: pointer;
+}
+.bp-comment-username:hover{
+    color: var(--blue);
+}
+
+.bp-comment-date{
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--grey);
+    margin-left: 0.5vw;
+}
+
+.bp-comment{
+    font-weight: 500;
+    color: black;
+    font-size: medium;
+    margin:0.5vh 0 0 1vw;
+}
